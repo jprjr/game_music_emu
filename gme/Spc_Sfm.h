@@ -39,7 +39,11 @@ public:
 	// Enables an analog signal simulation filter
 	void enable_filter( bool enable = true ) { _enable_filter = enable; if (enable) filter.clear(); }
 
-    SuperFamicom::SMP const* get_smp() const;
+	// Enables native echo
+	void enable_echo(bool enable = true) { smp.dsp.spc_dsp.enable_echo(enable); }
+	virtual void mute_effects(bool mute) { enable_echo(!mute); }
+	
+	SuperFamicom::SMP const* get_smp() const;
     SuperFamicom::SMP * get_smp();
 
     blargg_err_t hash_( Hash_Function& ) const;

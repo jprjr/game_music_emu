@@ -102,6 +102,9 @@ public:
 	// Requests use of custom multichannel buffer. Only supported by "classic" emulators;
 	// on others this has no effect. Should be called only once *before* set_sample_rate().
 	virtual void set_buffer( class Multi_Buffer* ) { }
+
+	// Mutes native effects of a given sound engine. Currently only applies to the SPC emulator.
+	virtual void mute_effects( bool mute ) { }
 	
 // Sound equalization (treble/bass)
 

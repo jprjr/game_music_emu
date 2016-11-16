@@ -135,6 +135,9 @@ void gme_mute_voice( gme_t*, int index, gme_bool mute );
 voices, 0 unmutes them all, 0x01 mutes just the first voice, etc. */
 void gme_mute_voices( gme_t*, int muting_mask );
 
+/* Disables native effects, and possibly others. */
+void gme_mute_effects( gme_t*, gme_bool mute );
+
 /* Frequency equalizer parameters (see gme.txt) */
 typedef struct gme_equalizer_t
 {

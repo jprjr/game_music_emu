@@ -95,6 +95,7 @@ public:
 	sample_t const* out_pos() const { return m.out; }
 	void disable_surround( bool disable = true );
 	void interpolation_level( int level = 0 ) { m.interpolation_level = level; }
+	void enable_echo( bool enable = true ) { m.enable_echo = enable ? 1 : 0; }
 public:
 	BLARGG_DISABLE_NOTHROW
 	
@@ -183,6 +184,7 @@ public:
 		int mute_mask;
         int surround_threshold;
 		int interpolation_level;
+		int enable_echo;
 		sample_t* out;
 		sample_t* out_end;
 		sample_t* out_begin;

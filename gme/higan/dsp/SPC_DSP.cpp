@@ -1069,7 +1069,7 @@ inline int SPC_DSP::echo_output( int ch )
         vol ^= vol >> 7;
 	
     int out = (int16_t) ((m.t_main_out [ch] * vol) >> 7) +
-			(int16_t) ((m.t_echo_in [ch] * (int8_t) REG(evoll + ch * 0x10)) >> 7);
+		(int16_t) ((m.t_echo_in [ch] * (int8_t) REG(evoll + ch * 0x10)) >> 7) * m.enable_echo;
 	CLAMP16( out );
 	return out;
 }

@@ -28,6 +28,7 @@ Sfm_Emu::Sfm_Emu()
     set_max_initial_silence( 30 );
 	set_silence_lookahead( 30 ); // Some SFMs may have a lot of initialization code
 	enable_filter( false );
+	enable_echo( true );
 }
 
 Sfm_Emu::~Sfm_Emu() { }
