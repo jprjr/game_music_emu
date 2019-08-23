@@ -127,6 +127,9 @@ public:
 	struct state_t
 	{
 		uint8_t regs [register_count];
+
+		// Echo buffer, for dodgy SPC rips that were only made to work in dodgy emulators
+		uint8_t echo_ram[64 * 1024];
 		
 		// Echo history keeps most recent 8 samples (twice the size to simplify wrap handling)
 		int echo_hist [echo_hist_size * 2] [2];

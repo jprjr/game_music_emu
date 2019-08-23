@@ -390,15 +390,6 @@ blargg_err_t Spc_Emu::start_track_( int track )
     
     smp.dsp.spc_dsp.load( ptr );
     
-    if ( !(smp.dsp.read( SuperFamicom::SPC_DSP::r_flg ) & 0x20) )
-    {
-        int addr = 0x100 * smp.dsp.read( SuperFamicom::SPC_DSP::r_esa );
-        int end  = addr + 0x800 * (smp.dsp.read( SuperFamicom::SPC_DSP::r_edl ) & 0x0F);
-        if ( end > 0x10000 )
-            end = 0x10000;
-        memset( &smp.apuram [addr], 0xFF, end - addr );
-    }
-
 	filter.set_gain( (int) (gain() * Spc_Filter::gain_unit) );
 	return blargg_ok;
 }
