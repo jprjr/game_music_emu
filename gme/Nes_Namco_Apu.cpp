@@ -107,18 +107,18 @@ void Nes_Namco_Apu::run_until( blip_time_t nes_end_time )
 			blip_resampled_time_t period =
 					output->resampled_duration( lowest_freq_period / 8 ) / freq * 8 * active_oscs;
 			
-			int wave_size = 256 - (osc_reg [4] & 0xFC);
+			// int wave_size = 256 - (osc_reg [4] & 0xFC); // breaks too many fan made files to be worth enabling
+			int wave_size = 32 - ((osc_reg[4] >> 2) & 7) * 4;
 			
 			int last_amp = osc.last_amp;
 			int wave_pos = osc_reg [5];
+			wave_pos %= wave_size;
 
 			output->set_modified();
 			
 			do
 			{
 				// read wave sample
-				while (wave_pos >= wave_size)
-					wave_pos -= wave_size;
 				int addr = (wave_pos + osc_reg [6]) & 0xFF;
 				int sample = reg [addr >> 1] >> (addr << 2 & 4);
 				sample = (sample & 15) * volume;
@@ -132,7 +132,7 @@ void Nes_Namco_Apu::run_until( blip_time_t nes_end_time )
 				}
 				
 				// next sample
-				++wave_pos;
+				wave_pos = (wave_pos + 1) % wave_size;
 				time += period;
 			}
 			while ( time < end_time );
