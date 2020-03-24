@@ -87,7 +87,7 @@ void Nes_Namco_Apu::run_until( blip_time_t nes_end_time )
 		osc.delay = 0;
 		if ( time < end_time )
 		{
-			BOOST::uint8_t* osc_reg = &reg [i * 8 + 0x40];
+			const BOOST::uint8_t* osc_reg = &reg [i * 8 + 0x40];
 			if ( !(osc_reg [4] & 0xE0) )
 				continue;
 			
@@ -107,12 +107,10 @@ void Nes_Namco_Apu::run_until( blip_time_t nes_end_time )
 			blip_resampled_time_t period =
 					output->resampled_duration( lowest_freq_period / 8 ) / freq * 8 * active_oscs;
 			
-			// int wave_size = 256 - (osc_reg [4] & 0xFC); // breaks too many fan made files to be worth enabling
-			int wave_size = 32 - ((osc_reg[4] >> 2) & 7) * 4;
+			int wave_size = 256 - (osc_reg [4] & 0xFC);
 			
 			int last_amp = osc.last_amp;
-			int wave_pos = osc_reg [5];
-			wave_pos %= wave_size;
+			int wave_pos = osc_reg [5] % wave_size;
 
 			output->set_modified();
 			
@@ -121,6 +119,7 @@ void Nes_Namco_Apu::run_until( blip_time_t nes_end_time )
 				// read wave sample
 				int addr = (wave_pos + osc_reg [6]) & 0xFF;
 				int sample = reg [addr >> 1] >> (addr << 2 & 4);
+				wave_pos++;
 				sample = (sample & 15) * volume;
 				
 				// output impulse if amplitude changed
@@ -132,12 +131,13 @@ void Nes_Namco_Apu::run_until( blip_time_t nes_end_time )
 				}
 				
 				// next sample
-				wave_pos = (wave_pos + 1) % wave_size;
 				time += period;
+				if (wave_pos >= wave_size)
+					wave_pos = 0;
 			}
 			while ( time < end_time );
 
-			osc_reg [5] = wave_pos;
+			((BOOST::uint8_t*)osc_reg) [5] = wave_pos;
 			
 			osc.last_amp = last_amp;
 		}
