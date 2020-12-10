@@ -118,22 +118,9 @@ otherwise continues normally. */
 			return blargg_err_memory;\
 	} while ( 0 )
 
-/* The usual min/max functions for built-in types.
-
-template<typename T> T min( T x, T y ) { return x < y ? x : y; }
-template<typename T> T max( T x, T y ) { return x > y ? x : y; } */
-#define BLARGG_DEF_MIN_MAX( type ) \
-	static inline type blargg_min( type x, type y ) { if ( y < x ) x = y; return x; }\
-	static inline type blargg_max( type x, type y ) { if ( x < y ) x = y; return x; }
-
-BLARGG_DEF_MIN_MAX( int )
-BLARGG_DEF_MIN_MAX( unsigned )
-BLARGG_DEF_MIN_MAX( long )
-BLARGG_DEF_MIN_MAX( unsigned long )
-BLARGG_DEF_MIN_MAX( BOOST::int64_t )
-BLARGG_DEF_MIN_MAX( BOOST::uint64_t )
-BLARGG_DEF_MIN_MAX( float )
-BLARGG_DEF_MIN_MAX( double )
+/* The usual min/max functions for built-in types. */
+template<typename T> T blargg_min( T x, T y ) { if( x < y) x = y; return x; }
+template<typename T> T blargg_max( T x, T y ) { if( x > y) x = y; return x; }
 
 #undef  min
 #define min blargg_min
