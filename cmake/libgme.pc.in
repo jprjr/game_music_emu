@@ -1,0 +1,13 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: Game_Music_Emu
+Description: A video game emulation library for music.
+Version: @PROJECT_VERSION@
+Requires:
+Requires.private: libfex zlib
+Cflags: -I${includedir}
+Libs: -L${libdir} -lgme
+Libs.private: -lstdc++

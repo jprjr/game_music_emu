@@ -1,0 +1,10 @@
+get_filename_component(GAME_MUSIC_EMU_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+include(CMakeFindDependencyMacro)
+
+list(APPEND CMAKE_MODULE_PATH ${GAME_MUSIC_EMU_CMAKE_DIR})
+
+if(NOT TARGET Game_Music_Emu::gme)
+    include("${GAME_MUSIC_EMU_CMAKE_DIR}/Game_Music_EmuTargets.cmake")
+endif()
+
+set(GAME_MUSIC_EMU_lIBRARIES Game_Music_Emu::gme)
