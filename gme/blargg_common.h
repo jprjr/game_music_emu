@@ -240,4 +240,14 @@ blargg_wchar_t* blargg_to_wide( const char* );
 
 BLARGG_NAMESPACE_END
 
+template <typename T, size_t N>
+constexpr size_t blargg_countof(T const (&)[N]) noexcept
+{
+    return N;
+}
+
+#ifndef _countof
+#define _countof blargg_countof
+#endif
+
 #endif
