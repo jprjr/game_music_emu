@@ -5,7 +5,7 @@
 #define M3U_PLAYLIST_H
 
 #include "blargg_common.h"
-#include "Data_Reader.h"
+#include <fex/Data_Reader.h>
 
 class M3u_Playlist {
 public:

@@ -5,7 +5,7 @@
 #define GME_LOADER_H
 
 #include "blargg_common.h"
-#include "Data_Reader.h"
+#include <fex/Data_Reader.h>
 
 class Gme_Loader {
 public:

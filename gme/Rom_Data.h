@@ -5,7 +5,7 @@
 #define ROM_DATA_H
 
 #include "blargg_common.h"
-#include "Data_Reader.h"
+#include <fex/Data_Reader.h>
 
 /* Loads a ROM file into memory and allows access to it in page-sized chunks.
 
